@@ -1,5 +1,17 @@
 {{> head}}
 <body>
+    <header>
+        <div class="auth_text">
+            {{#if isAuth}}
+                <form action="/logout" method="GET">
+                    <button class="logout_button">Log out</button>
+                </form>
+            {{else}}
+                <a href="/login">Log in</a>
+                <a href="/register">Register</a>
+            {{/if}}
+        </div>
+    </header>
     <div class="container">
         {{{ body }}}
     </div>

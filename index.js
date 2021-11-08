@@ -20,8 +20,10 @@ const checkoutRoute = require('./routes/checkout')
 const successRoute = require('./routes/success')
 const loginRoute = require('./routes/login')
 const registerRoute = require('./routes/register')
+const logoutRoute = require('./routes/logout')
 
 var app = express()
+
 
 const hbs = exhbs.create({
     defaultLayout: 'mainLayout',
@@ -53,15 +55,18 @@ app.use(express_session({
     store
 }))
 
+app.use(express.urlencoded({extended: true}))
+
+app.use(authMiddleware)
+
 app.use(mainRoute)
 app.use(checkoutRoute)
 app.use(successRoute)
 app.use(loginRoute)
 app.use(registerRoute)
+app.use(logoutRoute)
 
-app.use(authMiddleware)
 
-app.use(express.urlencoded({extended: true}))
 
 async function start() {
     try {
@@ -72,7 +77,9 @@ async function start() {
 
 
         app.listen(PORT, 
-            () => console.log(`server is running on ${PORT}`)
+            () => {
+                console.log(`server is running on ${PORT}`)
+            }
         )
     }
 
