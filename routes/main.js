@@ -1,9 +1,14 @@
 const router = require('express').Router()
+const SessionModel = require('../models/session')
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    const { sessionId } = req.session.user;
+    const isSessionId = await SessionModel.findOne({ sessionId })
+    let isUserPay = isSessionId === null ? null : true;
     res.render('main', {
         title: 'Main',
         cssFileName: 'main',
+        isUserPay
     })
     
 })
