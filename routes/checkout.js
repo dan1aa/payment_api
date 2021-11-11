@@ -4,7 +4,6 @@ const closeRoutes = require('../middlewares/closeRoutes.js')
 const SessionModel = require('../models/session.js')
 
 router.post('/checkout', closeRoutes, async (req, res) => {
-
     const session = await stripe.checkout.sessions.create({
         mode: 'payment',
         payment_method_types: ['card'],
@@ -14,16 +13,11 @@ router.post('/checkout', closeRoutes, async (req, res) => {
                 quantity: 1
             }
         ],
-        success_url: `http://localhost:3000/success`,
+        success_url: `http://localhost:3000/apikey`,
         cancel_url: 'http://localhost:3000'
     })
-    req.session.user.sessionId = session.id
+    req.session.incompleteSessionId = session.id;
     res.redirect(session.url)
-    const newSession = new SessionModel({
-        sessionId: session.id,
-        userId: req.session.user._id
-    })
-    await newSession.save()
 })
   
 module.exports = router;

@@ -1,7 +1,7 @@
 {{#if isAuth}}
 <h1>Get your api now</h1>
     {{#if isUserPay}}
-        <span>Yes pay</span>
+        <a href="/apikey">Go to your API key</a>
     {{else}}
         <form action="/checkout" method="POST"><button class="getapibutton">GET API</button></form>
     {{/if}}
