@@ -1,6 +1,7 @@
 const router = require('express').Router()
+const closeRoutes = require('../middlewares/closeRoutes')
 
-router.get("/logout", (req, res) => {
+router.get("/logout", closeRoutes, (req, res) => {
     try {
         req.session.destroy(() => {
             res.redirect("/");

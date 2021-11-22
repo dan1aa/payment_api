@@ -25,7 +25,6 @@ router.post("/register", async (req, res) => {
 
       req.session.user = user;
       req.session.isAuth = true;
-      req.session.sessionId = false;
       req.session.save((err) => {
         if (err) {throw new Error(e)}
         else {
@@ -34,7 +33,6 @@ router.post("/register", async (req, res) => {
       })
 
       await user.save();
-      console.log(user.name, user.email)
       res.redirect(`/`);
     }
   }

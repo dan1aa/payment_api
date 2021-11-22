@@ -1,92 +1,90 @@
-var express = require('express')
-var mongoose = require('mongoose')
-var exhbs = require('express-handlebars')
-var Handlebars = require('handlebars')
-var {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
-const path = require('path')
-const morgan = require('morgan')
-const helmet = require('helmet')
-require('dotenv').config()
-const bodyParser = require('body-parser')
-const express_session = require('express-session')
-const MongoStore = require('connect-mongodb-session')(express_session)
+const express = require("express");
+const mongoose = require("mongoose");
+const exhbs = require("express-handlebars");
+const Handlebars = require("handlebars");
+const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-access");
+const path = require("path");
+const morgan = require("morgan");
+const helmet = require("helmet");
+require("dotenv").config();
+const bodyParser = require("body-parser");
+const paypal = require("paypal-rest-sdk");
+const express_session = require("express-session");
+const MongoStore = require("connect-mongodb-session")(express_session);
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGO_URI
+const MONGODB_URI = process.env.MONGO_URI;
 
-const authMiddleware = require('./middlewares/auth.js')
+let app = express();
 
-const mainRoute = require('./routes/main')
-const checkoutRoute = require('./routes/checkout')
-const apikeyRoute = require('./routes/apikey')
-const loginRoute = require('./routes/login')
-const registerRoute = require('./routes/register')
-const logoutRoute = require('./routes/logout')
+const authMiddleware = require("./middlewares/auth.js");
 
-var app = express()
-
+const mainRoute = require("./routes/main");
+const loginRoute = require("./routes/login");
+const registerRoute = require("./routes/register");
+const logoutRoute = require("./routes/logout");
+const payRoute = require('./routes/pay')
 
 const hbs = exhbs.create({
-    defaultLayout: 'mainLayout',
-    extname: 'hbs',
-    handlebars: allowInsecurePrototypeAccess(Handlebars),
-    layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials'
-})
+  defaultLayout: "mainLayout",
+  extname: "hbs",
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
+  layoutsDir: __dirname + "/views/layouts",
+  partialsDir: __dirname + "/views/partials",
+});
 
-app.engine('hbs', hbs.engine)
-app.set('view engine', 'hbs')
-app.set('views', 'views')
+app.engine("hbs", hbs.engine);
+app.set("view engine", "hbs");
+app.set("views", "views");
 
-app.use(morgan('dev'))
-app.use(helmet())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(morgan("dev"));
+app.use(helmet());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, "public")));
 
 const store = new MongoStore({
-    collection: 'sessions',
-    uri: MONGODB_URI
-})
+  collection: "sessions",
+  uri: MONGODB_URI,
+});
 
-app.use(express_session({
+app.use(
+  express_session({
     secret: process.env.SECRET_SESSION_VALUE,
     resave: false,
     saveUninitialized: true,
-    store
-}))
+    store,
+  })
+);
 
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }));
 
-app.use(authMiddleware)
+app.use(authMiddleware);
 
-app.use(mainRoute)
-app.use(checkoutRoute)
-app.use(apikeyRoute)
-app.use(loginRoute)
-app.use(registerRoute)
-app.use(logoutRoute)
+app.use(mainRoute);
+app.use(loginRoute);
+app.use(registerRoute);
+app.use(logoutRoute);
+app.use(payRoute);
 
-
+paypal.configure({
+  'mode': 'sandbox',
+  'client_id': 'AeM3JPrAhTzUVMqmUrvsaIq3onuTGCLwsPUFLHpDBdLgv8-MpvqTTYWtbv3TXCb4GEH2K-JtzQ4sxNiU',
+  'client_secret': 'EMlW5DQoejJ-1a-0neAN7YxrqyQv_N8SQN41YpjSO2JzSY1wlLUMIBXkbsOcxMixb4izP4ZCdt5Kx2WM'
+});
 
 async function start() {
-    try {
-        await mongoose.connect(MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        })
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-
-        app.listen(PORT, 
-            () => {
-                console.log(`server is running on ${PORT}`)
-            }
-        )
-    }
-
-    catch(e) {
-        throw new Error(e)
-    }
-    
+    app.listen(PORT, () => {
+      console.log(`server is running on ${PORT}`);
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
 }
 
-start()
+start();

@@ -23,6 +23,6 @@
     "helmet": "^4.6.0",
     "mongoose": "^6.0.12",
     "morgan": "^1.10.0",
-    "stripe": "^8.186.1"
+    "paypal-rest-sdk": "^1.8.1"
   }
 }

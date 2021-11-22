@@ -1,12 +1,12 @@
 {{#if isAuth}}
-<h1>Get your api now</h1>
-    {{#if isUserPay}}
-        <a href="/apikey">Go to your API key</a>
-    {{else}}
-        <form action="/checkout" method="POST"><button class="getapibutton">GET API</button></form>
-    {{/if}}
+        {{#if isUserPay}}
+                <h1>Get your api key by link: <a href="/apikey">get api key</a></h1>
+        {{else}}
+                <h1>Get your api now</h1>
+                <form action="/pay" method="POST"><button class="getapibutton">GET API</button></form>
+        {{/if}}
 {{else}}
-<h1>Sorry, but to get api, you must authorize</h1>
+        <h1>Sorry, but to get api, you must authorize</h1>
 {{/if}}
 
 

@@ -1,10 +1,8 @@
+const paymentDetails = require('../models/paymentDetails')
 const router = require('express').Router()
-const SessionModel = require('../models/session')
 
 router.get('/', async (req, res) => {
-    const { sessionId } = req.session.user;
-    const isSessionId = await SessionModel.findOne({ sessionId })
-    let isUserPay = isSessionId === null ? null : true;
+    let isUserPay = req.session.isUserPay;
     res.render('main', {
         title: 'Main',
         cssFileName: 'main',
@@ -26,5 +24,6 @@ router.get('/login', (req, res) => {
         cssFileName: 'login',
     })
 })
+
 
 module.exports = router;
