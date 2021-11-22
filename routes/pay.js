@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const paypal = require('paypal-rest-sdk')
 const closeRoutes = require('../middlewares/closeRoutes')
-const paymentDetails = require('../models/paymentDetails')
 
 router.post('/pay', closeRoutes, (req, res) => {
     const create_payment_json = {
@@ -61,11 +60,10 @@ router.get('/success', closeRoutes, (req, res) => {
                 console.log(error.response);
                 throw error;
             } else {
-                req.session.user.payerId = payerId
-                req.session.user.paymentId = paymentId
                 req.session.isUserPay = true
                 res.end(JSON.stringify({
-                    success: 'true'
+                    success: 'true',
+                    href: 'http://localhost:3000/apikey'
                 }))
             }
         });

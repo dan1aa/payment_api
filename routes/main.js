@@ -1,12 +1,11 @@
-const paymentDetails = require('../models/paymentDetails')
 const router = require('express').Router()
+const closeRoutes = require('../middlewares/closeRoutes')
+const {apiKey} = require('../helpers/generateApi')
 
 router.get('/', async (req, res) => {
-    let isUserPay = req.session.isUserPay;
     res.render('main', {
         title: 'Main',
-        cssFileName: 'main',
-        isUserPay
+        cssFileName: 'main'
     })
     
 })
@@ -22,6 +21,13 @@ router.get('/login', (req, res) => {
     res.render('login', {
         title: 'Log in',
         cssFileName: 'login',
+    })
+})
+
+router.get('/apikey', closeRoutes,  (req, res) => {
+    res.render('apikey', {
+        title: 'Api key',
+        apiKey
     })
 })
 

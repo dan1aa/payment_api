@@ -1,7 +1,7 @@
-const genereateApi = require('generate-api-key')
+const generateApiKey = require('generate-api-key')
 
-const generateApiKey = () => generateApiKey({ method: 'string', min: 15, max: 20 })
+const apiKey = generateApiKey({ method: 'string', min: 10, max: 20 });
 
 module.exports = {
-    generateApiKey
+    apiKey
 }
