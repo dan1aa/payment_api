@@ -29,3 +29,14 @@ header {
     justify-content: space-between;
     padding: 20px;
 }
+.logout_button {
+    width: 100px;
+    height: 35px;
+    outline: none;
+    border: none;
+    background: tomato;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}

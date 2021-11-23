@@ -25,6 +25,7 @@ router.post("/register", async (req, res) => {
 
       req.session.user = user;
       req.session.isAuth = true;
+      req.session.isUserPay = false;
       req.session.save((err) => {
         if (err) {throw new Error(e)}
         else {

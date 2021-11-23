@@ -1,6 +1,7 @@
 {{#if isAuth}}
         {{#if isUserPay}}
-                <h1>Get your api key by link: <a href="/apikey">get api key</a></h1>
+                <a href="/apikey"><button class="apikey_link_button">GO TO API KEY</button></a>
+                <span>Loggined as {{username}}</span>
         {{else}}
                 <h1>Get your api now</h1>
                 <form action="/pay" method="POST"><button class="getapibutton">GET API</button></form>

@@ -2,6 +2,7 @@ const router = require('express').Router()
 const paypal = require('paypal-rest-sdk')
 const closeRoutes = require('../middlewares/closeRoutes')
 
+
 router.post('/pay', closeRoutes, (req, res) => {
     const create_payment_json = {
         "intent": "sale",
@@ -56,16 +57,8 @@ router.get('/success', closeRoutes, (req, res) => {
             }]
         }
         paypal.payment.execute(paymentId, execute_payment_json, async function (error, payment) {
-            if (error) {
-                console.log(error.response);
-                throw error;
-            } else {
                 req.session.isUserPay = true
-                res.end(JSON.stringify({
-                    success: 'true',
-                    href: 'http://localhost:3000/apikey'
-                }))
-            }
+                res.redirect('/apikey')
         });
     }
     catch (e) {
