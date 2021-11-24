@@ -6,12 +6,12 @@
     align-items: center;
     flex-direction: column;
 }
-.getapibutton {
+.getapi_button {
     width: 150px;
     height: 50px;
     outline: none;
     border: none;
-    background: rgb(0, 255, 136);
+    background: #4A5EA7;
     border-radius: 10px;
     color: white;
     font-size: 20px;
@@ -25,13 +25,22 @@ a {
     color: black; 
 }
 .apikey_link_button {
-    width: 150px;
-    height: 50px;
+    width: 180px;
+    height: 65px;
     outline: none;
     border: none;
     background: rgb(0, 143, 245);
-    border-radius: 15px;
+    border-radius: 20px;
     margin-bottom: 20px;
     color: white;
     cursor: pointer;
+    font-size: 20px;
+}
+.warning_text {
+    color: white;
+    font-size: 36px;
+}
+.instruction {
+    margin-bottom: 20px;
+    color: white;
 }

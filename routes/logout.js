@@ -3,9 +3,8 @@ const closeRoutes = require('../middlewares/closeRoutes')
 
 router.get("/logout", closeRoutes, (req, res) => {
     try {
-        req.session.destroy(() => {
-            res.redirect("/");
-        });
+        req.session.isAuth = false;
+        res.redirect('/')
     }
     catch(e) {
         throw new Error(e)

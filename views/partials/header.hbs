@@ -1,15 +1,13 @@
     <header>
         <div class="auth_text">
             {{#if isAuth}}
-                <div class="log_wrapper">
-                    <form action="/logout" method="GET">
-                        <button class="logout_button">Log out</button>
-                    </form>
+                <div class="log_out_wrapper">
+                        <a href="/logout" class="logout_link">Log out</a>
                 </div>
             {{else}}
                 <div class="auth_wrapper">
                     <a href="/login">Log in</a>
-                    <a href="/register">Register</a>
+                    <a href="/register">Sign up</a>
                 </div>
             {{/if}}
         </div>

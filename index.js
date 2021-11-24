@@ -74,6 +74,12 @@ paypal.configure({
   'client_secret': 'EMlW5DQoejJ-1a-0neAN7YxrqyQv_N8SQN41YpjSO2JzSY1wlLUMIBXkbsOcxMixb4izP4ZCdt5Kx2WM'
 });
 
+app.get('*', (req, res) => {
+  res.render('notfound', {
+    title: 'Page not found!'
+  })
+})
+
 async function start() {
   try {
     await mongoose.connect(MONGODB_URI, {

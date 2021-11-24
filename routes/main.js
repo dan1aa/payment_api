@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
         cssFileName: 'main'
     })
     console.log(req.session.isUserPay)
-    
 })
 
 router.get('/register', (req, res) => {
@@ -37,6 +36,7 @@ router.get('/apikey', closeRoutes,  async (req, res) => {
                 userId: req.session.user._id
             })
             await newApiKey.save()
+            req.session.apiKey = apiKey;
             res.render('apikey', {
                 title: 'Api key',
                 apiKey
@@ -45,7 +45,7 @@ router.get('/apikey', closeRoutes,  async (req, res) => {
         else {
             res.render('apikey', {
                 title: 'Api key',
-                apiKey
+                apiKey: req.session.apiKey
             })
         }
     }

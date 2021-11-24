@@ -5,9 +5,15 @@
     flex-direction: column;
     align-items: center;
 }
+.sign_name {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .sign_title{
     font-size: 36px;
     letter-spacing: 1px;
+    color: white;
 }
 .confirm_button{
     width: 100px;
@@ -36,9 +42,15 @@
     height: 70px;
     margin-top: 20px;
     border: none;
-    border-bottom:2px solid #4A5EA7 ;
+    border-bottom: 2px solid #fff;
     outline: none;
     font-size: 20px;
+    background: none;
+    color: white;
+}
+.sign_input_name::placeholder, .sign_input_password::placeholder, .sign_input_repeat_password::placeholder, .sign_input_email::placeholder {
+    color: white;
+    opacity: .6;
 }
 .sign_confirm{
     width: 100%;
