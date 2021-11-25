@@ -1,7 +1,9 @@
 const router = require('express').Router()
 const paypal = require('paypal-rest-sdk')
 const closeRoutes = require('../middlewares/closeRoutes')
+const Error = require('../loggers/error')
 
+let error = new Error()
 
 router.post('/pay', closeRoutes, (req, res) => {
     const create_payment_json = {
@@ -32,7 +34,7 @@ router.post('/pay', closeRoutes, (req, res) => {
     };
 
     paypal.payment.create(create_payment_json, function (e, payment) {
-        if (e) throw new Error(e);
+        if (e) error.error(res, e)
         for (let i = 0; i < payment.links.length; i++) {
             if (payment.links[i].rel === 'approval_url') {
                 res.redirect(payment.links[i].href)
@@ -62,7 +64,7 @@ router.get('/success', closeRoutes, (req, res) => {
         });
     }
     catch (e) {
-        throw new Error(e)
+        error.error(res, e)
     }
 })
 

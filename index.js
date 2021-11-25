@@ -19,6 +19,10 @@ let app = express();
 const authMiddleware = require("./middlewares/auth.js");
 const apikeyMiddleware = require("./middlewares/apikey.js");
 
+const Error = require('./loggers/error')
+
+let error = new Error()
+
 const mainRoute = require("./routes/main");
 const loginRoute = require("./routes/login");
 const registerRoute = require("./routes/register");
@@ -91,7 +95,7 @@ async function start() {
       console.log(`server is running on ${PORT}`);
     });
   } catch (e) {
-    throw new Error(e);
+    error.error(res, e)
   }
 }
 

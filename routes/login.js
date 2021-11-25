@@ -1,6 +1,9 @@
 const router = require('express').Router()
 const User = require('../models/user.js')
 const bcrypt = require('bcrypt')
+const Error = require('../loggers/error')
+
+let error = new Error()
 
 router.post("/login", async (req, res) => {
     try {
@@ -15,7 +18,7 @@ router.post("/login", async (req, res) => {
           req.session.user = candidate;
           req.session.isAuth = true;
           req.session.save((err) => {
-            if (err) throw err;
+            if (e) error.error(res, e)
             else {
               res.redirect("/");
             }
@@ -28,7 +31,7 @@ router.post("/login", async (req, res) => {
       }
     } 
     catch (e) {
-      throw new Error(e)
+      error.error(res, e)
     }
   });
   
