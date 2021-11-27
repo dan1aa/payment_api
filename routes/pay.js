@@ -48,6 +48,8 @@ router.get('/success', closeRoutes, (req, res) => {
     try {
         const payerId = req.query.PayerID;
         const paymentId = req.query.paymentId;
+        req.session.paymentId = paymentId;
+        req.session.payerId = payerId;
 
         const execute_payment_json = {
             "payer_id": payerId,
@@ -60,7 +62,7 @@ router.get('/success', closeRoutes, (req, res) => {
         }
         paypal.payment.execute(paymentId, execute_payment_json, async function (error, payment) {
                 req.session.isUserPay = true
-                res.redirect('/apikey')
+                res.redirect('/')
         });
     }
     catch (e) {

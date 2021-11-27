@@ -9,7 +9,9 @@ let error = new Error()
 router.get('/', async (req, res) => {
     res.render('main', {
         title: 'Main',
-        cssFileName: 'main'
+        cssFileName: 'main',
+        payerId: req.session.payerId,
+        paymentId: req.session.paymentId
     })
 })
 
@@ -28,8 +30,10 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/apikey', closeRoutes, async (req, res) => {
+    const { payerId, paymentId } = req.query
     try {
-        if (req.session.isUserPay === false) { res.send({ userPay: req.session.isUserPay }) }
+        console.log(req.session.isUserPay, req.session.payerId,req.session.paymentId)
+        if (req.session.isUserPay === false || payerId !== req.session.payerId || paymentId !== req.session.paymentId) { res.send({ message: 'Invalid url or query params' }) }
         else {
             const isApiKeyExist = await apikeySchema.findOne({ apiKey })
             if (!isApiKeyExist) {

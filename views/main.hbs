@@ -1,6 +1,6 @@
 {{#if isAuth}}
         {{#if isUserPay}}
-                <a href="/apikey"><button class="apikey_link_button">GO TO API KEY</button></a>
+                <a href="/apikey?payerId={{payerId}}&paymentId={{paymentId}}"><button class="apikey_link_button">GO TO API KEY</button></a>
         {{else}}
                 <h1 class="instruction">Pay and get api key!</h1>
                 <form action="/pay" method="POST"><button class="getapi_button">PAY</button></form>

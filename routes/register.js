@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
       req.session.user = user;
       req.session.isAuth = true;
       req.session.isUserPay = false;
-      req.session.save((err) => {
+      req.session.save((e) => {
         if (e) error.error(res, e)
         else {
           console.log('session loaded')

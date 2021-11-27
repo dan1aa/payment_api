@@ -17,7 +17,7 @@ router.post("/login", async (req, res) => {
         if (areSame) {
           req.session.user = candidate;
           req.session.isAuth = true;
-          req.session.save((err) => {
+          req.session.save((e) => {
             if (e) error.error(res, e)
             else {
               res.redirect("/");
