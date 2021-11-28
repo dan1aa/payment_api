@@ -28,6 +28,7 @@ const loginRoute = require("./routes/login");
 const registerRoute = require("./routes/register");
 const logoutRoute = require("./routes/logout");
 const payRoute = require('./routes/pay')
+const apikeyRoute = require('./routes/apikey')
 
 const hbs = exhbs.create({
   defaultLayout: "mainLayout",
@@ -71,6 +72,7 @@ app.use(loginRoute);
 app.use(registerRoute);
 app.use(logoutRoute);
 app.use(payRoute);
+app.use(apikeyRoute);
 
 paypal.configure({
   'mode': 'sandbox',
