@@ -46,6 +46,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "public")));
 
+app.set('json spaces', 2)
+
 const store = new MongoStore({
   collection: "sessions",
   uri: MONGODB_URI,

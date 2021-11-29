@@ -1,5 +1,8 @@
 const apiKey = require('../models/apiKey');
+const { generateUser } = require('../helpers/generateUser.helper.js')
 const router = require('express').Router()
+
+let userList = generateUser()
 
 router.get('/data', async (req, res) => {
     const { apikey } = req.query;
@@ -12,11 +15,7 @@ router.get('/data', async (req, res) => {
         })
     }
     else {
-        res.json({
-            data: {
-                message: 'test'
-            }
-        })
+        res.json(userList)
     }
 })
 
