@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 20px;
+}
+.container > div { 
+    width: 50%;
+    height: auto;
+    align-self: flex-start;
+    margin-bottom: 30px;
+    color: white;
+}
+.container > div h2 {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+.container > div span {
+    font-size: 22px;
+}

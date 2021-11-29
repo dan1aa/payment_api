@@ -25,6 +25,8 @@ const registerRoute = require("./routes/register");
 const logoutRoute = require("./routes/logout");
 const payRoute = require('./routes/pay')
 const apikeyRoute = require('./routes/apikey')
+const dataRoute = require('./routes/data')
+const faqRoute = require('./routes/faq')
 
 const hbs = exhbs.create({
   defaultLayout: "mainLayout",
@@ -69,6 +71,8 @@ app.use(registerRoute);
 app.use(logoutRoute);
 app.use(payRoute);
 app.use(apikeyRoute);
+app.use(dataRoute);
+app.use(faqRoute);
 
 paypal.configure({
   'mode': 'sandbox',
@@ -78,7 +82,8 @@ paypal.configure({
 
 app.get('*', (req, res) => {
   res.render('notfound', {
-    title: 'Page not found!'
+    title: 'Page not found!',
+    message: 'Oops, page not found!'
   })
 })
 
