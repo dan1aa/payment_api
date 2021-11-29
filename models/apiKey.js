@@ -8,7 +8,6 @@ const apiKeySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-    createdAt: { type: Date, expires: '1440m', default: Date.now }
 })
 
 module.exports = model('apikey', apiKeySchema)

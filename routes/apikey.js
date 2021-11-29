@@ -9,7 +9,9 @@ let errorLogger = new Error()
 router.get('/apikey', closeRoutes, async (req, res) => {
     const { payerId, paymentId } = req.query
     try {
-        if (req.session.isUserPay === false || payerId !== req.session.payerId || paymentId !== req.session.paymentId) { res.send({ message: 'Invalid url or query params' }) }
+        if (req.session.isUserPay === false || payerId !== req.session.payerId || paymentId !== req.session.paymentId) {
+             res.render('notfound', { message: 'Invalid url or query params' }) 
+        }
         else {
             const isApiKeyExist = await apikeySchema.findOne({ apiKey })
             if (!isApiKeyExist) {

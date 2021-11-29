@@ -1,14 +1,14 @@
-    <header>
-        <div class="auth_text">
-            {{#if isAuth}}
-                <div class="log_out_wrapper">
-                        <a href="/logout" class="logout_link">Log out</a>
-                </div>
-            {{else}}
-                <div class="auth_wrapper">
-                    <a href="/login">Log in</a>
-                    <a href="/register">Sign up</a>
-                </div>
-            {{/if}}
+<header>
+    <div class="auth_text">
+        {{#if isAuth}}
+        <div class="log_out_wrapper">
+            <a href="/logout" class="logout_link">Log out</a>
         </div>
-    </header>
+        {{else}}
+        <div class="auth_wrapper">
+            <a href="/login">Log in</a>
+            <a href="/register">Sign up</a>
+        </div>
+        {{/if}}
+    </div>
+</header>

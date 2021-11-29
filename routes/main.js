@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
             payerId: req.session.payerId,
             paymentId: req.session.paymentId
         })
+        console.log(req.session)
     }
     catch(e) {
         errorLogger.serverError(res, e)

@@ -43,7 +43,7 @@ header {
     justify-content: space-between;
     padding: 20px;
 }
-.logout_link {
+.logout_link, .user_cabinet_link {
     color: white;
     font-size: 22px;
     text-decoration: none;
@@ -58,6 +58,7 @@ header {
     font-size: 20px;
     cursor: pointer;
 }
-.notfount_message {
+.notfound_message {
     color: white;
+    font-size: 26px;
 }
