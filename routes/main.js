@@ -1,31 +1,46 @@
 const router = require('express').Router()
 const closeRoutes = require('../middlewares/closeRoutes')
 const apikeySchema = require('../models/apiKey')
-const Error = require('../loggers/error')
+const Error = require('../loggers/error.logger.js')
 
-let error = new Error()
+let errorLogger = new Error()
 
 router.get('/', async (req, res) => {
-    res.render('main', {
-        title: 'Main',
-        cssFileName: 'main',
-        payerId: req.session.payerId,
-        paymentId: req.session.paymentId
-    })
+    try {
+        res.render('main', {
+            title: 'Main',
+            cssFileName: 'main',
+            payerId: req.session.payerId,
+            paymentId: req.session.paymentId
+        })
+    }
+    catch(e) {
+        errorLogger.serverError(res, e)
+    }
 })
 
 router.get('/register', (req, res) => {
-    res.render('register', {
-        title: 'Register',
-        cssFileName: 'register'
-    })
+    try {
+        res.render('register', {
+            title: 'Register',
+            cssFileName: 'register'
+        })
+    }
+    catch(e) {
+        errorLogger.serverError(res, e)
+    }
 })
 
 router.get('/login', (req, res) => {
-    res.render('login', {
-        title: 'Log in',
-        cssFileName: 'login',
-    })
+    try {
+        res.render('login', {
+            title: 'Log in',
+            cssFileName: 'login',
+        })
+    }
+    catch(e) {
+        error.serverError(res, e)
+    }
 })
 
 

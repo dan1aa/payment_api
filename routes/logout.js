@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const closeRoutes = require('../middlewares/closeRoutes')
-const Error = require('../loggers/error')
+const Error = require('../loggers/error.logger.js')
 
-let error = new Error()
+let errorLogger = new Error()
 
 router.get("/logout", closeRoutes, (req, res) => {
     try {
@@ -10,7 +10,7 @@ router.get("/logout", closeRoutes, (req, res) => {
         res.redirect('/')
     }
     catch(e) {
-        error.error(res, e)
+        errorLogger.serverError(res, e)
     }
 });
 

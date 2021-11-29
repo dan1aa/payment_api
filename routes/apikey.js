@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const { apiKey } = require('../helpers/generateApi')
+const { apiKey } = require('../helpers/generateapi.helper.js')
 const closeRoutes = require('../middlewares/closeRoutes')
-const Error = require('../loggers/error')
+const Error = require('../loggers/error.logger.js')
 const apikeySchema = require('../models/apiKey')
 
-let error = new Error()
+let errorLogger = new Error()
 
 router.get('/apikey', closeRoutes, async (req, res) => {
     const { payerId, paymentId } = req.query
@@ -32,7 +32,7 @@ router.get('/apikey', closeRoutes, async (req, res) => {
             }
         }
     } catch (e) {
-        error.error(res, e)
+        errorLogger.serverError(res, e)
     }
 })
 

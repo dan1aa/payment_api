@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const User = require('../models/user.js')
 const bcrypt = require('bcrypt')
-const Error = require('../loggers/error')
+const Error = require('../loggers/error.logger.js')
 
-let error = new Error()
+let errorLogger = new Error()
 
 router.post("/register", async (req, res) => {
   try {
@@ -28,11 +28,8 @@ router.post("/register", async (req, res) => {
       req.session.user = user;
       req.session.isAuth = true;
       req.session.isUserPay = false;
-      req.session.save((e) => {
-        if (e) error.error(res, e)
-        else {
-          console.log('session loaded')
-        }
+      req.session.save(e => {
+        if (e) errorLogger.serverError(res, e)
       })
 
       await user.save();
@@ -40,7 +37,7 @@ router.post("/register", async (req, res) => {
     }
   }
   catch(e) {
-    error.error(res, e)
+    errorLogger.serverError(res, e)
   }
 });
 

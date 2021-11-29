@@ -17,11 +17,7 @@ const MONGODB_URI = process.env.MONGO_URI;
 let app = express();
 
 const authMiddleware = require("./middlewares/auth.js");
-const apikeyMiddleware = require("./middlewares/apikey.js");
-
-const Error = require('./loggers/error')
-
-let error = new Error()
+const apikeyMiddleware = require("./middlewares/apiKey.js");
 
 const mainRoute = require("./routes/main");
 const loginRoute = require("./routes/login");
@@ -97,7 +93,7 @@ async function start() {
       console.log(`server is running on ${PORT}`);
     });
   } catch (e) {
-    error.error(res, e)
+    error.databaseConnectionError(e)
   }
 }
 

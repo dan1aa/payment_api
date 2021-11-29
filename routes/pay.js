@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const paypal = require('paypal-rest-sdk')
 const closeRoutes = require('../middlewares/closeRoutes')
-const Error = require('../loggers/error')
+const Error = require('../loggers/error.logger.js')
 
-let error = new Error()
+let errorLogger = new Error()
 
 router.post('/pay', closeRoutes, (req, res) => {
     const create_payment_json = {
@@ -34,13 +34,16 @@ router.post('/pay', closeRoutes, (req, res) => {
     };
 
     paypal.payment.create(create_payment_json, function (e, payment) {
-        if (e) error.error(res, e)
-        for (let i = 0; i < payment.links.length; i++) {
-            if (payment.links[i].rel === 'approval_url') {
-                res.redirect(payment.links[i].href)
+        try {
+            for (let i = 0; i < payment.links.length; i++) {
+                if (payment.links[i].rel === 'approval_url') {
+                    res.redirect(payment.links[i].href)
+                }
             }
         }
-        console.log(payment)
+        catch(e) {
+            errorLogger.serverError(res, e)
+        }
     });
 })
 
@@ -60,13 +63,18 @@ router.get('/success', closeRoutes, (req, res) => {
                 }
             }]
         }
-        paypal.payment.execute(paymentId, execute_payment_json, async function (error, payment) {
-                req.session.isUserPay = true
-                res.redirect('/')
+        paypal.payment.execute(paymentId, execute_payment_json, async function (e, payment) {
+                try {
+                    req.session.isUserPay = true
+                    res.redirect('/')
+                }
+                catch(e) {
+                    errorLogger.serverError(res, e)
+                }
         });
     }
     catch (e) {
-        error.error(res, e)
+        errorLogger.serverError(res, e)
     }
 })
 
