@@ -19,10 +19,6 @@ let user = {
     martialStatus: true,
 }
 
-function generateUser() {
-    return user
-}
-
 module.exports = {
-    generateUser
+    user
 }
