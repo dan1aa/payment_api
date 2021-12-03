@@ -1,24 +1,32 @@
+const names = require('../apiData/usernames')[0]
+const emails = require('../apiData/emails')[0]
+const countries = require('../apiData/countries')[0]
+const works = require('../apiData/works')[0]
+const universities = require('../apiData/universities')[0]
+const { randomDate, randomValuesFromArray, randomNumber, randomPhoneNumber, randomPassword } = require('./generateValues.helper.js')
 
-let user = {
-    name: 'test',
-    age: 25,
-    sex: 'male',
-    birthdayYear: 2006,
-    email: 't@mail.com',
-    country: 'Ukraine',
-    address: {
-        City: 'If',
-        street: 'Gal',
-        streetNumber: 12
-    },
-    work: {
-        position: 'Programmer',
-        experience: '1 year',
-        company: 'Corporation inc.'
-    },
-    martialStatus: true,
+
+let generateUser = () => {
+    return {
+        name: randomValuesFromArray(names),
+        age: randomNumber(18, 110),
+        sex: randomValuesFromArray(['Male', 'Female']),
+        birthday: randomDate(),
+        email: randomValuesFromArray(emails),
+        password: randomPassword(),
+        phone: randomPhoneNumber(),
+        country: randomValuesFromArray(countries),
+        university: randomValuesFromArray(universities),
+        work: {
+            position: randomValuesFromArray(works),
+        },
+        married: randomValuesFromArray([true, false]),
+        login: randomValuesFromArray(names),
+        postCode:  randomNumber(10001, 99998)
+    }
 }
 
 module.exports = {
-    user
+    generateUser
 }
+        // martialStatus

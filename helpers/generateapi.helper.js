@@ -1,6 +1,6 @@
-const generateApiKey = require('generate-api-key')
+const uuidAPIKey = require('uuid-apikey')
 
-const apiKey = generateApiKey({ method: 'string', min: 10, max: 20 });
+const apiKey = uuidAPIKey.create().apiKey
 
 module.exports = {
     apiKey

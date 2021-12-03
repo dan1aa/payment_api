@@ -7,6 +7,7 @@ let errorLogger = new Error()
 
 router.post("/login", async (req, res) => {
     try {
+      console.log(req.session.isUserPay)
       const { username, password } = req.body;
       const candidate = await User.findOne({
         name: username

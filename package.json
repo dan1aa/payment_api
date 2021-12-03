@@ -19,10 +19,10 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
     "express-session": "^1.17.2",
-    "generate-api-key": "^1.0.0",
     "helmet": "^4.6.0",
     "mongoose": "^6.0.12",
     "morgan": "^1.10.0",
-    "paypal-rest-sdk": "^1.8.1"
+    "paypal-rest-sdk": "^1.8.1",
+    "uuid-apikey": "^1.5.3"
   }
 }
