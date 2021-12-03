@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const paypal = require("paypal-rest-sdk");
 const express_session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(express_session);
+const flash = require('connect-flash')
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGO_URI;
 
@@ -43,6 +44,7 @@ app.set("views", "views");
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(flash())
 
 app.use(express.static(path.join(__dirname, "public")));
 

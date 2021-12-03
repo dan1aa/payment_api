@@ -1,21 +1,35 @@
 const router = require('express').Router()
 const User = require('../models/user.js')
 const bcrypt = require('bcrypt')
+const registerSchema = require('../joi/signup')
 const Error = require('../loggers/error.logger.js')
 
 let errorLogger = new Error()
 
+router.get('/register', (req, res) => {
+  try {
+      res.render('register', {
+          title: 'Register',
+          cssFileName: 'register',
+          error: req.flash('registerError')
+      })
+  }
+  catch(e) {
+      errorLogger.serverError(res, e)
+  }
+})
+
 router.post("/register", async (req, res) => {
   try {
-
     const { username, password, email } = req.body;
+    // await registerSchema.validateAsync(username, password, email)
 
     const nameCandidate = await User.findOne({ name: username })
     const emailCandidate = await User.findOne({ email })
 
     if(nameCandidate || emailCandidate) {
-      res.json({message: 'Already register'})
-      res.redirect('/')
+      req.flash('registerError', 'User is already exist!')
+      res.redirect('/register')
     }
     else {
       const hashPassword = await bcrypt.hash(password, 10);

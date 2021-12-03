@@ -2,13 +2,28 @@ const router = require('express').Router()
 const User = require('../models/user.js')
 const bcrypt = require('bcrypt')
 const Error = require('../loggers/error.logger.js')
+const loginSchema = require('../joi/login')
 
 let errorLogger = new Error()
 
+router.get('/login', (req, res) => {
+  try {
+      res.render('login', {
+          title: 'Log in',
+          cssFileName: 'login',
+          error: req.flash('loginError')
+      })
+  }
+  catch(e) {
+      error.serverError(res, e)
+  }
+})
+
+
 router.post("/login", async (req, res) => {
     try {
-      console.log(req.session.isUserPay)
       const { username, password } = req.body;
+      // await loginSchema.validateAsync(username, password)
       const candidate = await User.findOne({
         name: username
       });
@@ -18,7 +33,8 @@ router.post("/login", async (req, res) => {
         if (areSame) {
           req.session.user = candidate;
           req.session.isAuth = true;
-          req.session.save((e) => {
+          req.session.save(e => {
+            if(e) errorLogger.serverError(res, e)
             try {
               res.redirect('/')
             }
@@ -27,10 +43,12 @@ router.post("/login", async (req, res) => {
             }
           });
         } else {
-          console.log("Login error");
+          req.flash('loginError', 'Sorry, some troubles happened!')
+          res.redirect('/login')
         }
       } else {
-        console.log("Login error");
+        req.flash('loginError', 'Sorry, some troubles happened!')
+        res.redirect('/login')
       }
     } 
     catch (e) {

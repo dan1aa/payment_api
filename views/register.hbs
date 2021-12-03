@@ -1,14 +1,36 @@
-<form action="/register" method="POST">
-            <div class="sign_name">
-                <h1 class="sign_title">Sign up</h1>
-            </div>
-            <div class="sign_input">
-                <input  class="sign_input_name" type="text" id="" placeholder="name" name="username" required> </input>
-                <input  class="sign_input_email" type="email" id="" placeholder="email" name="email" required> </input>
-                <input  class="sign_input_password" type="password" id="" placeholder="password" name="password" required> </input>
-                <input  class="sign_input_repeat_password" type="password" id="" placeholder="password" name="repeat_password" required> </input>
-            </div>
-            <div class="sign_confirm">
-                <button class="confirm_button">Confirm</button>
-            </div> 
-        </form>
+{{#if error}}
+    <p class="alert">User is exist</p>
+    <form action="/register" method="POST">
+        <div class="sign_name">
+            <h1 class="sign_title">Sign up</h1>
+        </div>
+        <div class="sign_input">
+            <input class="sign_input_name" type="text" id="" placeholder="name" name="username" required> </input>
+            <input class="sign_input_email" type="email" id="" placeholder="email" name="email" required> </input>
+            <input class="sign_input_password" type="password" id="" placeholder="password" name="password" required>
+            </input>
+            <input class="sign_input_repeat_password" type="password" id="" placeholder="password" name="repeat_password"
+                required> </input>
+        </div>
+        <div class="sign_confirm">
+            <button class="confirm_button">Confirm</button>
+        </div>
+    </form>
+{{else}}
+    <form action="/register" method="POST">
+        <div class="sign_name">
+            <h1 class="sign_title">Sign up</h1>
+        </div>
+        <div class="sign_input">
+            <input class="sign_input_name" type="text" id="" placeholder="name" name="username" required> </input>
+            <input class="sign_input_email" type="email" id="" placeholder="email" name="email" required> </input>
+            <input class="sign_input_password" type="password" id="" placeholder="password" name="password" required>
+            </input>
+            <input class="sign_input_repeat_password" type="password" id="" placeholder="password" name="repeat_password"
+                required> </input>
+        </div>
+        <div class="sign_confirm">
+            <button class="confirm_button">Confirm</button>
+        </div>
+    </form>
+{{/if}}
