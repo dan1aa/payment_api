@@ -2,7 +2,6 @@ const router = require('express').Router()
 const User = require('../models/user.js')
 const bcrypt = require('bcrypt')
 const Error = require('../loggers/error.logger.js')
-const loginSchema = require('../joi/login')
 
 let errorLogger = new Error()
 
@@ -43,11 +42,11 @@ router.post("/login", async (req, res) => {
             }
           });
         } else {
-          req.flash('loginError', 'Sorry, some troubles happened!')
+          req.flash('loginError', 'Incorrect name of password!')
           res.redirect('/login')
         }
       } else {
-        req.flash('loginError', 'Sorry, some troubles happened!')
+        req.flash('loginError', 'Incorrect name of password!')
         res.redirect('/login')
       }
     } 
