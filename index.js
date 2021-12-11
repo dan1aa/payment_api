@@ -80,8 +80,8 @@ app.use(faqRoute);
 
 paypal.configure({
   'mode': 'sandbox',
-  'client_id': 'AeM3JPrAhTzUVMqmUrvsaIq3onuTGCLwsPUFLHpDBdLgv8-MpvqTTYWtbv3TXCb4GEH2K-JtzQ4sxNiU',
-  'client_secret': 'EMlW5DQoejJ-1a-0neAN7YxrqyQv_N8SQN41YpjSO2JzSY1wlLUMIBXkbsOcxMixb4izP4ZCdt5Kx2WM'
+  'client_id': process.env.PAYPAL_CLIENT_ID,
+  'client_secret': process.env.PAYPAL_SECRET
 });
 
 app.get('*', (req, res) => {
