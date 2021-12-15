@@ -13,9 +13,8 @@ router.get('/data', async (req, res) => {
             message: 'Invalid apikey or you forgot put apikey into query param like this: http://localhost:3000/data?apikey=<YOUR_APIKEY>'
         })
     }
-    else {
-        res.json(generateUser())
-    }
+
+    res.json(generateUser())
 })
 
 

@@ -34,7 +34,6 @@ header {
 .auth_wrapper a {
     font-size: 20px;
     color: white;
-    text-decoration: none;
 }
 .log_out_wrapper {
     width: 100%;
@@ -43,10 +42,9 @@ header {
     justify-content: space-between;
     padding: 20px;
 }
-.logout_link, .user_cabinet_link {
+.logout_link {
     color: white;
     font-size: 22px;
-    text-decoration: none;
 }
 .logout_button {
     width: 100px;
@@ -61,4 +59,15 @@ header {
 .notfound_message {
     color: white;
     font-size: 26px;
+}
+.faq_link {
+    color: white;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+    font-size: 22px;
+}
+a {
+    text-decoration: none;
 }

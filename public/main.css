@@ -16,25 +16,27 @@
     color: white;
     font-size: 20px;
     cursor: pointer;
+    margin-bottom: 20px;
+}
+.bug_warn {
+    color: white;
 }
 span {
     font-size: 22px;
 }
-a {
-    text-decoration: none;
-    color: black; 
-}
 .apikey_link_button {
-    width: 180px;
-    height: 65px;
     outline: none;
     border: none;
-    background: rgb(0, 143, 245);
     border-radius: 20px;
     margin-bottom: 20px;
     color: white;
     cursor: pointer;
     font-size: 20px;
+}
+.apikey_link_button {
+    width: 180px;
+    height: 65px;
+    background: rgb(0, 195, 255);
 }
 .warning_text {
     color: white;

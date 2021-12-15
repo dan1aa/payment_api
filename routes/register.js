@@ -2,6 +2,7 @@ const router = require('express').Router()
 const User = require('../models/user.js')
 const bcrypt = require('bcrypt')
 const Error = require('../loggers/error.logger.js')
+const { body, validationResult } = require('express-validator')
 
 let errorLogger = new Error()
 
@@ -18,13 +19,24 @@ router.get('/register', (req, res) => {
   }
 })
 
-router.post("/register", async (req, res) => {
+router.post("/register",
+  body('username').isLength({min: 8, max: 100}).isString().notEmpty().escape().trim(),
+  body('password').isLength({ min: 8, max: 100 }).notEmpty().escape().trim(),
+  body('email').isEmail().normalizeEmail().notEmpty().escape().trim(),
+  async (req, res) => {
+
   try {
     const { username, password, repeat_password, email } = req.body;
-    // await registerSchema.validateAsync(username, password, email)
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
 
     const nameCandidate = await User.findOne({ name: username })
     const emailCandidate = await User.findOne({ email })
+
+    console.log(nameCandidate, emailCandidate)
 
     if (nameCandidate || emailCandidate) {
       req.flash('registerError', 'User already exist!')
@@ -35,24 +47,22 @@ router.post("/register", async (req, res) => {
         req.flash('registerError', 'Passwords don`t match!')
         res.redirect('/register')
       }
-      else {
-        const hashPassword = await bcrypt.hash(password, 10);
-        const user = new User({
-          name: username,
-          password: hashPassword,
-          email: email,
-        });
+      const hashPassword = await bcrypt.hash(password, 10);
+      const user = new User({
+        name: username,
+        password: hashPassword,
+        email: email,
+      });
 
-        req.session.user = user;
-        req.session.isAuth = true;
-        req.session.isUserPay = false;
-        req.session.save(e => {
-          if (e) errorLogger.serverError(res, e)
-        })
+      req.session.user = user;
+      req.session.isAuth = true;
+      req.session.isUserPay = false;
+      req.session.save(e => {
+        if (e) errorLogger.serverError(res, e)
+      })
 
-        await user.save();
-        res.redirect(`/`);
-      }
+      await user.save();
+      res.redirect(`/`);
     }
   }
   catch (e) {

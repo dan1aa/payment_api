@@ -60,7 +60,6 @@
 }
 .forgot_password_wrapper a {
     color: white;
-    text-decoration: none;
 }
 .log_input_password, .log_input_name{
     width: 300px;

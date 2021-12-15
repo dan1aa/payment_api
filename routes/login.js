@@ -41,11 +41,13 @@ router.post("/login", async (req, res) => {
               errorLogger.serverError(res, e)
             }
           });
-        } else {
+        } 
+        else {
           req.flash('loginError', 'Incorrect name of password!')
           res.redirect('/login')
         }
-      } else {
+      } 
+      else {
         req.flash('loginError', 'Incorrect name of password!')
         res.redirect('/login')
       }

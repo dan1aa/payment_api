@@ -50,6 +50,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.set('json spaces', 2)
 
+
 const store = new MongoStore({
   collection: "sessions",
   uri: MONGODB_URI,
@@ -85,7 +86,7 @@ paypal.configure({
 });
 
 app.get('*', (req, res) => {
-  res.render('notfound', {
+  res.status(404).render('notfound', {
     title: 'Page not found!',
     message: 'Oops, page not found!'
   })
@@ -107,3 +108,5 @@ async function start() {
 }
 
 start();
+
+module.exports = app;

@@ -10,8 +10,8 @@ router.get('/', async (req, res) => {
         res.render('main', {
             title: 'Main',
             cssFileName: 'main',
-            payerId: req.session.payerId,
-            paymentId: req.session.paymentId
+            payerId: req.session.payerId || null,
+            paymentId: req.session.paymentId || null
         })
     }
     catch(e) {
