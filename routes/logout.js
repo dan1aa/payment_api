@@ -6,7 +6,9 @@ let errorLogger = new Error()
 
 router.get("/logout", closeRoutes, (req, res) => {
     try {
-        req.session.isAuth = false;
+        req.session.destroy(err => {
+            if(err) throw new Error(err)
+        })
         res.redirect('/')
     }
     catch(e) {

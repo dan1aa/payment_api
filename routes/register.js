@@ -20,7 +20,7 @@ router.get('/register', (req, res) => {
 })
 
 router.post("/register",
-  body('username').isLength({min: 8, max: 100}).isString().notEmpty().escape().trim(),
+  body('username').isLength({min: 3, max: 100}).isString().notEmpty().escape().trim(),
   body('password').isLength({ min: 8, max: 100 }).notEmpty().escape().trim(),
   body('email').isEmail().normalizeEmail().notEmpty().escape().trim(),
   async (req, res) => {
@@ -56,7 +56,6 @@ router.post("/register",
 
       req.session.user = user;
       req.session.isAuth = true;
-      req.session.isUserPay = false;
       req.session.save(e => {
         if (e) errorLogger.serverError(res, e)
       })

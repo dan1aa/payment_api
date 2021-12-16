@@ -2,6 +2,7 @@ const router = require('express').Router()
 const paypal = require('paypal-rest-sdk')
 const closeRoutes = require('../middlewares/closeRoutes')
 const Error = require('../loggers/error.logger.js')
+const User = require('../models/user')
 
 let errorLogger = new Error()
 
@@ -47,12 +48,15 @@ router.post('/pay', closeRoutes, (req, res) => {
     });
 })
 
-router.get('/success', closeRoutes, (req, res) => {
+router.get('/success', closeRoutes, async (req, res) => {
+
+    const currentUser = await User.findOne({ name: req.session.user.name })
+
     try {
         const payerId = req.query.PayerID;
         const paymentId = req.query.paymentId;
-        req.session.paymentId = paymentId;
-        req.session.payerId = payerId;
+        const updatedPaymentUser = await User.findOneAndUpdate({ name: req.session.user.name }, { payerId, paymentId })
+        await updatedPaymentUser.save()
 
         const execute_payment_json = {
             "payer_id": payerId,
@@ -63,9 +67,10 @@ router.get('/success', closeRoutes, (req, res) => {
                 }
             }]
         }
-        paypal.payment.execute(paymentId, execute_payment_json, async function (e, payment) {
+        paypal.payment.execute(paymentId, execute_payment_json, async (e, payment) => {
                 try {
-                    req.session.isUserPay = true
+                    const updatedPaymentUser = await User.findOneAndUpdate({ name: req.session.user.name }, { isUserPay: true })
+                    await updatedPaymentUser.save()
                     res.redirect('/')
                 }
                 catch(e) {

@@ -18,7 +18,6 @@ const MONGODB_URI = process.env.MONGO_URI;
 let app = express();
 
 const authMiddleware = require("./middlewares/auth.js");
-const apikeyMiddleware = require("./middlewares/apiKey.js");
 
 const mainRoute = require("./routes/main");
 const loginRoute = require("./routes/login");
@@ -68,7 +67,6 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 
 app.use(authMiddleware);
-app.use(apikeyMiddleware);
 
 app.use(mainRoute);
 app.use(loginRoute);

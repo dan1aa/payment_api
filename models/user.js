@@ -9,6 +9,18 @@ const userModel = new Schema({
     },
     email: {
         type: String
+    },
+    isUserPay: {
+        type: Boolean,
+        default: false
+    },
+    payerId: {
+        type: String,
+        default: null
+    },
+    paymentId: {
+        type: String,
+        default: null
     }
 })
 

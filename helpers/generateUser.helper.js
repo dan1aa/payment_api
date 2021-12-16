@@ -22,11 +22,11 @@ let generateUser = () => {
         },
         married: randomValuesFromArray([true, false]),
         login: randomValuesFromArray(names),
-        postCode:  randomNumber(10001, 99998)
+        postCode:  randomNumber(10001, 99998),
+        avatarUrl: 'https://picsum.photos/200/300'
     }
 }
 
 module.exports = {
     generateUser
 }
-        // martialStatus
