@@ -14,7 +14,9 @@ router.get('/data', async (req, res) => {
         })
     }
 
-    res.json(generateUser())
+    else {
+        res.json(generateUser())
+    }
 })
 
 
