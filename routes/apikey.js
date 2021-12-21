@@ -22,6 +22,9 @@ router.get('/apikey', closeRoutes, async (req, res) => {
                 userId: req.session.user._id
             })
             await newApiKey.save()
+            const updateCurrentApiKey = await User.findOneAndUpdate({ name: req.session.user.name }, {currentApiKey: apiKey})
+            await updateCurrentApiKey.save()
+            console.log(apiKey)
             req.session.apiKey = apiKey;
             res.render('apikey', {
                 title: 'Api key',
@@ -32,7 +35,7 @@ router.get('/apikey', closeRoutes, async (req, res) => {
         else {
             res.render('apikey', {
                 title: 'Api key',
-                apiKey: req.session.apiKey,
+                apiKey: currentUser.currentApiKey,
                 isUserPay: currentUser.isUserPay
             })
         }

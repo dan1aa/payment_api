@@ -21,6 +21,10 @@ const userModel = new Schema({
     paymentId: {
         type: String,
         default: null
+    },
+    currentApiKey: {
+        type: String,
+        default: ''
     }
 })
 
